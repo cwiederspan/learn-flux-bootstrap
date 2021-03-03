@@ -45,17 +45,36 @@ az aks get-credentials -n $NAME -g $NAME --overwrite
 Here, we will use the instructions from [this page](https://toolkit.fluxcd.io/get-started/#install-flux-components) to add the FluxCD 2.x bootstrap components to the repo.
 
 ```bash
+# If necessary, install FluxCD CLI
 curl -s https://toolkit.fluxcd.io/install.sh | sudo bash
 
+# Set the creds for your GitHub repo
 export GITHUB_USER=<your-username>
 export GITHUB_TOKEN=<your-token>
 
+# Confirm that everything is good to go
+flux check --pre
+
+# Setup the repo and install on the cluster
 flux bootstrap github \
   --owner=$GITHUB_USER \
   --repository=learn-flux-bootstrap \
   --branch=main \
   --path=./clusters/my-cluster \
   --namespace=flux-system \
+  --components-extra=image-reflector-controller,image-automation-controller \
   --personal \
   --verbose
 ```
+
+## Cluster Clean Up
+
+```bash
+# Delete cluster
+az aks delete \
+--resource-group $NAME \
+--name $NAME
+```
+
+curl -sL https://raw.githubusercontent.com/stefanprodan/podinfo/5.0.0/kustomize/deployment.yaml \
+> ./clusters/my-cluster/podinfo/deployment.yaml
