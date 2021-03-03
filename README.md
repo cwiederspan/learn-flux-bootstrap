@@ -85,6 +85,3 @@ az aks delete \
 --resource-group $NAME \
 --name $NAME
 ```
-
-curl -sL https://raw.githubusercontent.com/stefanprodan/podinfo/5.0.0/kustomize/deployment.yaml \
-> ./clusters/my-cluster/podinfo/deployment.yaml
