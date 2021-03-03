@@ -9,10 +9,8 @@ The bootstrapping repo for a FluxCD v2.x implementation
 These variables will be used throughout the demo.
 
 ```bash
-NAME=cdw-kubernetes-20210302
-
-# Azure Arc is limited to East US (among a few others), so use it
-LOCATION=westus2
+export NAME=cdw-kubernetes-20210302
+export LOCATION=westus2
 ```
 
 ### Create an Azure Resource Group
@@ -44,7 +42,7 @@ az aks get-credentials -n $NAME -g $NAME --overwrite
 
 ## Add Flux Bootstrap
 
-Here, we will use the instructions from [this page]() to add the FluxCD 2.x bootstrap components to the repo.
+Here, we will use the instructions from [this page](https://toolkit.fluxcd.io/get-started/#install-flux-components) to add the FluxCD 2.x bootstrap components to the repo.
 
 ```bash
 curl -s https://toolkit.fluxcd.io/install.sh | sudo bash
