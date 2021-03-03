@@ -1,10 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-spec:
-  targetNamespace: demo1
 resources:
-# - git@github.com/fluxcd/flux2//manifests/integrations/registry-credentials-sync/azure
-- flux.yaml
-- application.yaml
+- git@github.com/fluxcd/flux2//manifests/integrations/registry-credentials-sync/azure
 # patchesStrategicMerge:
 # - config-patches.yaml
