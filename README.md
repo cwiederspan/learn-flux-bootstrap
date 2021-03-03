@@ -11,6 +11,7 @@ These variables will be used throughout the demo.
 ```bash
 export NAME=cdw-kubernetes-20210302
 export LOCATION=westus2
+export ACR_NAME=cdwms
 ```
 
 ### Create an Azure Resource Group
@@ -34,10 +35,20 @@ az aks create \
 --node-count 2 \
 --generate-ssh-keys \
 --enable-managed-identity \
---enable-addons monitoring
+--enable-addons monitoring \
+--attach-acr $ACR_NAME
 
 # Get the credentials
 az aks get-credentials -n $NAME -g $NAME --overwrite
+```
+
+## Push the Sample Image to Your ACR
+
+```bash
+docker pull ghcr.io/stefanprodan/podinfo:5.0.0
+docker tag ghcr.io/stefanprodan/podinfo:5.0.0 $ACR_NAME.azurecr.io/podinfo:5.0.0
+az acr login -n $ACR_NAME
+docker push $ACR_NAME.azurecr.io/podinfo:5.0.0
 ```
 
 ## Add Flux Bootstrap
@@ -70,7 +81,6 @@ flux bootstrap github \
 ## Cluster Clean Up
 
 ```bash
-# Delete cluster
 az aks delete \
 --resource-group $NAME \
 --name $NAME
