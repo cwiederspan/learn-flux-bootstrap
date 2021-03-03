@@ -76,6 +76,9 @@ flux bootstrap github \
   --components-extra=image-reflector-controller,image-automation-controller \
   --personal \
   --verbose
+
+# Test service with Port Forwarding
+kubectl -n demo1 port-forward service/podinfo 9898:9898
 ```
 
 ## Cluster Clean Up
