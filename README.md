@@ -33,8 +33,10 @@ az aks create \
 --location $LOCATION \
 --kubernetes-version 1.19.7 \
 --node-count 2 \
+--network-plugin azure \
 --generate-ssh-keys \
 --enable-managed-identity \
+--enable-pod-identity \
 --enable-addons monitoring \
 --attach-acr $ACR_NAME
 

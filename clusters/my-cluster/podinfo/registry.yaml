@@ -7,8 +7,8 @@ metadata:
 spec:
   image: cdwms.azurecr.io/podinfo
   interval: 1m0s
-  secretRef:
-    name: acr-cdwms-creds
+  # secretRef:
+  #   name: acr-cdwms-creds
 ---
 apiVersion: image.toolkit.fluxcd.io/v1alpha1
 kind: ImagePolicy
