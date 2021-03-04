@@ -53,6 +53,20 @@ az acr login -n $ACR_NAME
 docker push $ACR_NAME.azurecr.io/podinfo:5.0.0
 ```
 
+## Setup an AAD Pod Identity
+
+```bash
+# Create an identity in Azure and assign it a role to pull from ACR  (note: the identity's resourceGroup should match the desired ACR):
+az identity create -n acr-sync -g $NAME
+az role assignment create --role AcrPull --assignee-object-id "$(az identity show -n acr-sync -g $NAME -o tsv --query principalId)"
+
+# Fetch the clientID and resourceID to configure the AzureIdentity spec below:
+az identity show -n acr-sync -g $NAME -otsv --query clientId
+az identity show -n acr-sync -g $NAME -otsv --query id
+
+# Use the above values to update the clusters/my-cluster/podinfo/flux/config-patches.yaml file
+```
+
 ## Add Flux Bootstrap
 
 Here, we will use the instructions from [this page](https://toolkit.fluxcd.io/get-started/#install-flux-components) to add the FluxCD 2.x bootstrap components to the repo.

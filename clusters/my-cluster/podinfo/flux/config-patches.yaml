@@ -1,26 +1,19 @@
-# ---
-# apiVersion: v1
-# kind: ConfigMap
-# metadata:
-#   name: credentials-sync
-# data:
-#   ACR_NAME: my-registry
-#   KUBE_SECRET: my-registry  # does not yet exist -- will be created in the same Namespace
-#   SYNC_PERIOD: "3600"  # ACR tokens expire every 3 hours; refresh faster than that
-
-# # Create an identity in Azure and assign it a role to pull from ACR  (note: the identity's resourceGroup should match the desired ACR):
-# #     az identity create -n acr-sync
-# #     az role assignment create --role AcrPull --assignee-object-id "$(az identity show -n acr-sync -o tsv --query principalId)"
-# # Fetch the clientID and resourceID to configure the AzureIdentity spec below:
-# #     az identity show -n acr-sync -otsv --query clientId
-# #     az identity show -n acr-sync -otsv --query resourceId
-# ---
-# apiVersion: aadpodidentity.k8s.io/v1
-# kind: AzureIdentity
-# metadata:
-#   name: credentials-sync  # name must match the stub-resource in az-identity.yaml
-#   namespace: flux-system
-# spec:
-#   clientID: 4ceaa448-d7b9-4a80-8f32-497eaf3d3287
-#   resourceID: /subscriptions/8c69185e-55f9-4d00-8e71-a1b1bb1386a1/resourcegroups/stealthybox/providers/Microsoft.ManagedIdentity/userAssignedIdentities/acr-sync
-#   type: 0  # user-managed identity
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: credentials-sync
+data:
+  ACR_NAME: cdwms
+  KUBE_SECRET: acr-cdwms-creds  # does not yet exist -- will be created in the same Namespace
+  SYNC_PERIOD: "3600"           # ACR tokens expire every 3 hours; refresh faster than that
+---
+apiVersion: aadpodidentity.k8s.io/v1
+kind: AzureIdentity
+metadata:
+  name: credentials-sync
+  namespace: flux-system
+spec:
+  clientID: e107f01d-522e-49ac-9925-f47c27e35b4c
+  resourceID: /subscriptions/b9c770d1-cde9-4da3-ae40-95ce1a4fac0c/resourcegroups/cdw-kubernetes-20210302/providers/Microsoft.ManagedIdentity/userAssignedIdentities/acr-sync
+  type: 0  # user-managed identity
