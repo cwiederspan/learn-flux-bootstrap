@@ -56,13 +56,11 @@ docker push $ACR_NAME.azurecr.io/podinfo:5.0.0
 ## Setup an ACR Pull Secret
 
 ```bash
-
 kubectl create secret docker-registry acr-cdwms-creds \
     --namespace demo1 \
     --docker-server=$ACR_NAME.azurecr.io \
     --docker-username=$ACR_NAME \
     --docker-password=<<YOUR ACR PASSWORD >>
-
 ```
 
 ## Setup an AAD Pod Identity
@@ -107,6 +105,9 @@ flux bootstrap github \
 
 # Test service with Port Forwarding
 kubectl -n demo1 port-forward service/podinfo 9898:9898
+
+# Test the container tag scanning
+flux get image repository podinfo -n demo1
 ```
 
 ## Cluster Clean Up
