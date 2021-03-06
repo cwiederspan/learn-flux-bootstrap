@@ -3,5 +3,5 @@ kind: Kustomization
 resources:
 - https://github.com/fluxcd/flux2//manifests/integrations/registry-credentials-sync/azure?ref=main
 # - git@github.com/fluxcd/flux2//manifests/integrations/registry-credentials-sync/azure
-# patchesStrategicMerge:
-# - config-patches.yaml
+patchesStrategicMerge:
+- config-patches.yaml
