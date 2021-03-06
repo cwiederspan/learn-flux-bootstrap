@@ -8,4 +8,4 @@ spec:
   interval: 1m0s
   ref:
     branch: main
-  url: https://git@github.com/flux/flux2
+  url: https://github.com/fluxcd/flux2
