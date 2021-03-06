@@ -113,7 +113,5 @@ flux get image repository podinfo -n demo1
 ## Cluster Clean Up
 
 ```bash
-az aks delete \
---resource-group $NAME \
---name $NAME
+az group delete --name $NAME
 ```
