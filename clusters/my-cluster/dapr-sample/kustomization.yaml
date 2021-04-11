@@ -1,0 +1,10 @@
+namespace: dapr-sample
+
+resources:
+- ./namespace.yaml
+- ./component.yaml
+- ./dotnet-subtractor.yaml
+- ./go-adder.yaml
+- ./node-divider.yaml
+- ./python-multiplier.yaml
+- ./react-calculator.yaml
